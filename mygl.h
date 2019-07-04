@@ -110,6 +110,21 @@ void DrawTriangle( Pixel *a, Pixel *b, Pixel *c )
     DrawLine( c, a );
 }
 
+void DrawFilledTriangle( Pixel *a, Pixel *b, Pixel *c )
+{
+    if ( a->x < b->x ) {
+        while ( b->x != a->x ) {
+            DrawLine( c, b );
+            b->x--;
+        }
+    } else {
+        while ( b->x !=a->x ) {
+            DrawLine( c, b );
+            b->x++;
+        }
+    }
+}
+
 void DesenhaPixels( void )
 {
     // Escreve um pixel vermelho na posicao (0,0) da tela:

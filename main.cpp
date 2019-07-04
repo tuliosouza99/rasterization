@@ -11,7 +11,7 @@ void MyGlDraw(void)
 	Pixel iPixel = Pixel( 129, 300, 0, 255, 0, 255);
 	Pixel mPixel = Pixel( 385, 300, 0, 0, 255, 255);
 
-	DrawTriangle( &mPixel, &iPixel , &fPixel );
+	DrawFilledTriangle( &mPixel, &iPixel , &fPixel );
 }
 
 //-----------------------------------------------------------------------------
