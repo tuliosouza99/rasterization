@@ -113,27 +113,7 @@ void DrawTriangle( Pixel *a, Pixel *b, Pixel *c )
 
 void DrawFilledTriangle( Pixel *a, Pixel *b, Pixel *c, Pixel *color )
 {
-    // // Compute vectors        
-    // v0 = C - A
-    // v1 = B - A
-    // v2 = P - A
-
-    // // Compute dot products
-    // dot00 = dot(v0, v0)
-    // dot01 = dot(v0, v1)
-    // dot02 = dot(v0, v2)
-    // dot11 = dot(v1, v1)
-    // dot12 = dot(v1, v2)
-
-    // // Compute barycentric coordinates
-    // invDenom = 1 / (dot00 * dot11 - dot01 * dot01)
-    // u = (dot11 * dot02 - dot01 * dot12) * invDenom
-    // v = (dot00 * dot12 - dot01 * dot02) * invDenom
-
-    // // Check if point is in triangle
-    // return (u >= 0) && (v >= 0) && (u + v < 1)
-
-    // getting the bounding boc of the triangle
+    // getting the bounding box of the triangle
     int maxX = std::max( a->x, std::max( b->x, c->x ));
     int minX = std::min( a->x, std::min( b->x, c->x ));
     int maxY = std::max( a->y, std::max( b->y, c->y ));
@@ -145,55 +125,18 @@ void DrawFilledTriangle( Pixel *a, Pixel *b, Pixel *c, Pixel *color )
 
     for ( int x = minX; x <= maxX; ++x ) {
         for ( int y = minY; y <= maxY; ++y ) {
-            Pixel q = Pixel( (x - a->x), (y - a->y), color->r, color->g, color->b, color->a );
+            Pixel q = Pixel( (x - a->x), (y - a->y), 1, 1, 1, 1 );
 
-            float s = (float) ((q.x - vs2.y) * (vs2.x - q.y)) / (float) ((vs1.x - vs2.y) * (vs2.x - vs1.y));
-            float t = (float) ((vs1.x - q.y) * (q.x - vs1.y)) / (float) ((vs1.x - vs2.y) * (vs2.x - vs1.y));
+            float s = (float) ((q.x * vs2.y) - (vs2.x * q.y)) / (float) ((vs1.x * vs2.y) - (vs2.x * vs1.y));
+            float t = (float) ((vs1.x * q.y) - (q.x * vs1.y)) / (float) ((vs1.x * vs2.y) - (vs2.x * vs1.y));
 
             if ( (s >= 0) && (t >= 0) && (s + t <= 1) ) {
-                Pixel newPixel = Pixel( x, y, color->r, color->g, color->b, color->a );
-                PutPixel( &newPixel );
+                color->x = x;
+                color->y = y;
+                PutPixel( color );
             }
         }
     }
-
-    // if ( c->x < b->x ) {
-    //     while ( b->x != c->x ) {
-    //         DrawLine( a, b );
-    //         b->x--;
-    //     }
-    // } else {
-    //     while ( b->x !=c->x ) {
-    //         DrawLine( a, b );
-    //         b->x++;
-    //     }
-    // }
-
-    // if ( (a->x <= b->x) && (a->y <= b->y) ) {
-    //     while ( b->x != a->x ) {
-    //         DrawLine( c, b );
-    //         b->x--;
-    //         b->y--;
-    //     }
-    // } else if ( (a->x >= b->x) && (a->y >= b->y) ) {
-    //     while ( b->x != a->x ) {
-    //         DrawLine( c, b );
-    //         b->x++;
-    //         b->y++;
-    //     }
-    // } else if ( (a->x <= b->x) && (a->y >= b->y) ) {
-    //     while ( b->x != a->x ) {
-    //         DrawLine( c, b );
-    //         b->x--;
-    //         b->y++;
-    //     }
-    // } else if ( (a->x >= b->x) && (a->y <= b->y) ) {
-    //     while ( b->x != a->x ) {
-    //         DrawLine( c, b );
-    //         b->x++;
-    //         b->y--;
-    //     }
-    // }
 }
 
 void DesenhaPixels( void )
