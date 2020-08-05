@@ -19,7 +19,7 @@
 
 ## Introduction
 
-This project has been done for our  Introduction to Computer Graphics’ subject ministrated by Professor Christian Pagot at Universidade Federal da Paraíba. In order to do this activity, we have implemented algorithms to rasterize pixels and lines. Thus, we were able to create triangles by combining these primitives. In addition, a framework was provided by the professor so we could simulate the access into the video memory.
+This project has been done to our  Introduction to Computer Graphics’ class teached by Professor Christian Pagot. In order to do this activity, we have implemented algorithms to rasterize pixels and lines. Thus, we were able to create triangles by combining these primitives. In addition, a framework was provided by the professor so we could simulate the access into the video memory.
 
 #### Dependencies
 - OpenGL
